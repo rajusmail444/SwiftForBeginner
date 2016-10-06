@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ICW-Tb-bIg">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Start Up View Controller-->
+        <scene sceneID="Kyj-1F-N1C">
+            <objects>
+                <viewController storyboardIdentifier="StartUpViewController" id="ICW-Tb-bIg" customClass="StartUpViewController" customModule="TableView" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xkj-yY-SGt"/>
+                        <viewControllerLayoutGuide type="bottom" id="qwZ-vy-apa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bRy-xL-XrX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSW-ua-tuo">
+                                <rect key="frame" x="126" y="492" width="69" height="30"/>
+                                <state key="normal" title="Start Tour"/>
+                                <connections>
+                                    <action selector="startWalkthrough:" destination="ICW-Tb-bIg" eventType="touchUpInside" id="yid-nh-lKE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8g0-5y-Qq4">
+                                <rect key="frame" x="210" y="530" width="45" height="30"/>
+                                <state key="normal" title="MENU"/>
+                                <connections>
+                                    <action selector="showHamburgerMenu:" destination="ICW-Tb-bIg" eventType="touchUpInside" id="pvQ-uI-tmi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQg-7O-7Bt">
+                                <rect key="frame" x="47" y="530" width="65" height="30"/>
+                                <state key="normal" title="SKIP"/>
+                                <connections>
+                                    <action selector="skipWalkthroughAndMoveToApp:" destination="ICW-Tb-bIg" eventType="touchUpInside" id="bw4-Mr-EZo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ak6-Gx-4my" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="372"/>
+        </scene>
+        <!--Page Content View Controller-->
+        <scene sceneID="Ugq-41-prZ">
+            <objects>
+                <viewController storyboardIdentifier="PageContentController" id="FLN-PH-3GS" customClass="PageContentViewController" customModule="TableView" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="r8E-Hd-5z2"/>
+                        <viewControllerLayoutGuide type="bottom" id="A9r-IC-2zr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fCL-Zi-0J6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y32-K3-Dlc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFF-Ca-hQI">
+                                <rect key="frame" x="20" y="58" width="280" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="y32-K3-Dlc" id="m62-Ki-qtN"/>
+                        <outlet property="titleLabel" destination="CFF-Ca-hQI" id="KRq-PN-wh9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XcR-oO-R6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="497" y="703"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Fjy-7e-tCl">
+            <objects>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="4gT-oF-sjd" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PRf-ab-Ncp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="497" y="43"/>
+        </scene>
+    </scenes>
+</document>

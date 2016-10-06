@@ -1,0 +1,147 @@
+//
+//  CoreDataTableViewController.swift
+//  TableView
+//
+//  Created by Rajesh Billakanti on 15/07/16.
+//  Copyright © 2016 RAjay. All rights reserved.
+//
+
+import UIKit
+import CoreData
+
+class CoreDataTableViewController: UITableViewController {
+    var devices = [NSManagedObject]()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func getManagedContext() -> NSManagedObjectContext{
+        let appDeligate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDeligate.managedObjectContext
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let managedContext = getManagedContext()
+        let fetchRequest = NSFetchRequest(entityName: "CoreData")
+        do{
+            let result =
+                try managedContext.executeFetchRequest(fetchRequest)
+            devices = result as! [NSManagedObject]
+        }catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+            
+        }
+        tableView.reloadData()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return devices.count
+    }
+
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("deviceDataCell", forIndexPath: indexPath)
+        let deviceData = devices[indexPath.row]
+        cell.textLabel!.text = (deviceData.valueForKey("name") as? String)!+" "+(deviceData.valueForKey("version") as? String)!
+        cell.detailTextLabel!.text = deviceData.valueForKey("company") as? String
+        // Configure the cell...
+
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool{
+        return true;
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let managedContext = getManagedContext()
+        if(editingStyle == UITableViewCellEditingStyle.Delete){
+            managedContext.deleteObject(devices[indexPath.row] as NSManagedObject)
+            do{
+                try managedContext.save()
+            }catch let error as NSError{
+                print("Could not save \(error), \(error.userInfo)")
+            }
+            devices.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let indexPath = self.tableView.indexPathForSelectedRow
+        if(segue.identifier == "UpdateDevice"){
+            let selectedDevice : NSManagedObject = devices[(indexPath?.row)!]
+            print("selectedDevice:\(selectedDevice)")
+            if let destViewController = segue.destinationViewController as? CoreDataDetailViewController {
+                destViewController.device = selectedDevice
+            }
+        }
+    }
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
